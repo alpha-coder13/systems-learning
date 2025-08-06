@@ -9,4 +9,14 @@ int main(){
 
 
     printf("this is pointer incremented a %d",a);
+
+    int array[9] = {0,1,2,3,4,5,6,7,8};
+
+    int *pointer_to_array = array;
+    int arrayLength = sizeof(array)/sizeof(array[0]);
+    
+    for(int i =0 ; i< arrayLength;i++){
+        printf("array elements %d\n",*(pointer_to_array+i));
+    }
+    return 0;
 }
