@@ -4,6 +4,11 @@
 // the functions should be defined first in header file or in the code flow , I am defining here in the code flow
 void printMyNAme(char *);// this takes a pointer to a string and prints my name
 int ComparatorFunc(const void*, const void*); // this is the standard comparator function def
+int a1(int a, int b,int i);
+int a2(int a, int b,int i);
+int a3(int a, int b,int i);
+int a4(int a, int b,int i);
+int a5(int a, int b,int i);
 
 int main(){ // this is also a function // that gets invoked inintitally
     char * a = "Amardeep Saha";
@@ -15,12 +20,46 @@ int main(){ // this is also a function // that gets invoked inintitally
 
 
     int (*fptr)(const void*, const void*) = &ComparatorFunc; // pointer ot a function
-    // syntax :  return_type (*pointer)(... type of parameters ) =  address to the function name;
-    qsort(numArr,sizeof(numArr)/sizeof(*numArr),sizeof(numArr[0]), ComparatorFunc);
+    // syntax :  return_type (*pointer_name)(... type of parameters ) =  address to the function name;
+    qsort(numArr,sizeof(numArr)/sizeof(*numArr),sizeof(numArr[0]), fptr);
 
     for(int i = 0; i <  sizeof(numArr)/sizeof(*numArr); i++){
         printf("%d ",*(numArr+i));
     }
+
+    // array of pointers to functions:
+     
+    void* fnArr[]  = {&a1,  &a2, &a3, &a4, &a5};
+    int size = sizeof(fnArr)/sizeof(*fnArr);
+
+    for(int i =0 ; i < size ; i++){
+        int (*fptr)(int,int,int) = *(fnArr+i);
+        printf("%d\n", (*fptr)(i+1,i+2,i));
+    }
+
+
+    // or
+
+    for(int i =0 ; i < size ; i++){
+        // int (*fptr)(int,int,int) = *(fnArr+i);
+        // printf("%d\n", (*fptr)(i+1,i+2,i));
+
+        printf("%d\n",(*((int (*)(int,int,int))(*(fnArr+i))))(i+1,i+2,i));
+    }    
+
+    // or
+
+    int (*fnArr2[])(int,int,int)  = {&a1,  &a2, &a3, &a4, &a5};
+    // or
+    //  int (**fnArr2)(int,int,int)  // for this we would require malloc and free, next time
+
+    int size2 = sizeof(fnArr2)/sizeof(*fnArr2);
+
+    for(int i =0 ; i < size ; i++){
+        printf("%d\n",(**(fnArr2 + i))(i+1,i+2,i));
+    } 
+
+
     return 0;
 }
 
@@ -36,3 +75,19 @@ int ComparatorFunc(const void * a, const void * b){
 
 }
 
+int a1(int a, int b,int i){
+    return (a * i + b*i); 
+}
+
+int a2(int a, int b,int i){
+    return (a * i + b*i); 
+}
+int a3(int a, int b,int i){
+    return (a * i + b*i); 
+}
+int a4(int a, int b,int i){
+    return (a * i + b*i); 
+}
+int a5(int a, int b,int i){
+    return (a * i + b*i); 
+}
