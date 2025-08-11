@@ -1,7 +1,7 @@
 #include<stdio.h>
 int main(){
     int a =  1;
-    int * pointer_to_a = &a;
+    int * pointer_to_a = &a; // the & operator is called the address operator giving the memory address of the object
 
     a +=1;
     printf("this is a %d",a);
