@@ -33,3 +33,51 @@ int main(){
     PrintIMemployee(a);
     return 0;
 }
+
+
+// ------------------------------- struct heavy -----------------------------//
+
+//mordern C pdf 
+struct rat {
+bool sign;
+size_t num;
+size_t denom;
+};
+
+rat rat_get(signed sign, size_t num, size_t denom) [[__unsequenced__]] {
+rat ret = {
+.sign = (sign < 0),
+.num = num,
+.denom = denom,
+};
+return ret;
+}
+
+rat rat_get_normal(rat x) [[__unsequenced__]] {
+    size_t c = gcd(x.num, x.denom);
+    x.num /= c;
+    x.denom /= c;
+    return x;
+}
+rat rat_get_extended(rat x, size_t f) [[__unsequenced__]] {
+    x.num *= f;
+    x.denom *= f;
+    return x;
+}
+rat rat_get_prod(rat x, rat y) [[__unsequenced__]] {
+    rat ret = {
+    .sign = (x.sign != y.sign),
+    .num = x.num * y.num,
+    .denom = x.denom * y.denom,
+    };
+return rat_get_normal(ret);
+}
+
+
+/*
+[Exs 21]Implement function rat_print as declared in listing 10.1. This function should use -> to access the
+members of its rat* argument. The printout should have the form ±nom/denum.
+[Exs 22]Implement rat_print_normalized by combining rat_normalize and rat_print.
+
+need to do this
+*/
