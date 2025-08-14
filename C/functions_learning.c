@@ -60,6 +60,16 @@ int main(){ // this is also a function // that gets invoked inintitally
     } 
 
 
+    // understanding pointer decay to functions
+
+    printf("%p\n",printMyNAme);
+    printf("%p\n",(*printMyNAme));
+    printf("%p\n",(&printMyNAme));
+    printf("%p\n",(*&printMyNAme));
+    printf("%p\n",(&*printMyNAme)); 
+    // the above all points to same memory location // %p formats pointer to memory location
+    // so o whta exactly is & and *
+
     return 0;
 }
 
